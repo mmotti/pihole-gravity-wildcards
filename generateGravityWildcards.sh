@@ -30,7 +30,7 @@ function fetchResults() {
 	status="$?"
 	[[ "${status}" -ne 0 ]]  && { (>&2 echo '[i] An error occured whilst fetching results'); return 1; }
 
-	return
+	return 0
 }
 
 function determineBlockingMode {
@@ -74,7 +74,7 @@ function determineBlockingMode {
 
 	echo "${blockingMode}"
 
-	return
+	return 0
 }
 
 function generateDNSMASQ () {
@@ -87,7 +87,7 @@ function generateDNSMASQ () {
 	# Construct output
 	awk -v mode="${blockingMode}" 'BEGIN{n=split(mode, modearr, " ")}n>0{for(m in modearr)print "address=/"$0"/"modearr[m]; next} {print "address=/"$0"/"}' <(echo "${domains}")
 
-	return
+	return 0
 }
 
 function convertToFMatchPatterns() {
