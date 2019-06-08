@@ -162,7 +162,7 @@ fi
 echo "[i] Identifying domains with >= ${limit_subdomains} subdomains"
 domains=$(awk -v limit="${limit_subdomains}" -F'.' 'BEGIN{i=0}index($0,prev FS)!=1{if(i>=limit){print prev;}prev=$0;i=0;next}{++i}' <(rev "${tmp_gravity}" | sort) | rev | sort)
 [[ -z "${domains}" ]] && { echo "No domains were found to have >= ${limit_subdomains} subdomains"; exit 0; }
-echo "[i] $(wc -l <<< ${domains}) domains found"
+echo "[i] $(wc -l <<< "${domains}") domains found"
 
 # Make sure we aren't wildcarding any domains that will interfere with the whitelist
 if [[ "${usingDB}" == true ]]; then
@@ -180,7 +180,7 @@ fi
 if [[ -n "${str_whitelist}" ]]; then
 	echo '[i] Checking for whitelist conflicts'
 	domains=$(removeWildcardConflicts "${str_whitelist}" "${domains}")
-	echo "[i] $(wc -l <<< ${domains}) domains remain after conflict resolution"
+	echo "[i] $(wc -l <<< "${domains}") domains remain after conflict resolution"
 else
 	echo '[i] No whitelisted domains detected'
 fi
