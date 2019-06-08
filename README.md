@@ -22,7 +22,8 @@ This is just one example, returning **17,944** subdomains in my gravity table fo
 3. Identify domains with >= 20 subdomains
 4. Exclude wildcards that conflict with the whitelist
 5. Determine the blocking mode (NULL, NXDOMAIN, IP-NODATA-AAAA and IP)
-6. Output wildcards to DNSMASQ conf file.
+6. Output wildcards to DNSMASQ conf file
+7. Restart the Pi-hole service
 
 ### Can I change the subdomain limit?
 Yes! Just edit `limit_subdomains=20` in the script to whatever value you like.
