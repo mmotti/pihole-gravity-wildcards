@@ -158,6 +158,10 @@ else
 	cp "${file_gravity}" "${tmp_gravity}"
 fi
 
+# Remove invalid characters from gravity
+tmp_output=$(mktemp --suffix='.gravity')
+iconv -f "$(file -b --mime-encoding "${tmp_gravity}")" -t UTF-8 -c "${tmp_gravity}" > "${tmp_output}" && mv "${tmp_output}" "${tmp_gravity}"
+
 # Find domains with more than x subdomains
 echo "[i] Identifying domains with >= ${limit_subdomains} subdomains"
 domains=$(awk -v limit="${limit_subdomains}" -F'.' 'BEGIN{i=0}index($0,prev FS)!=1{if(i>=limit){print prev;}prev=$0;i=0;next}{++i}' <(rev "${tmp_gravity}" | sort) | rev | sort)
